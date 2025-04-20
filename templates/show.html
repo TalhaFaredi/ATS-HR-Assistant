@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume Analysis Results</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='show_CSS.css') }}"> 
+</head>
+<body>
+    <h1>Resume Matching Results</h1>
+    {% if intersection_results %}
+        <table border="1">
+            <tr>
+                <th>File Name</th>
+                <th>Matching Skills</th>
+                <th>Matching Percentage</th>
+            </tr>
+            {% for file_name, result in intersection_results.items() %}
+                <tr>
+                    <!-- Remove .pdf extension using replace filter -->
+                    <td>{{ file_name | replace('.pdf', '') }}</td>
+                    <td>{{ result['Matching Skills'] | join(', ') }}</td>
+                    <td>{{ result['Matching Percentage'] }}%</td>
+                </tr>
+            {% endfor %}
+        </table>
+    {% else %}
+        <p>No matching results found.</p>
+    {% endif %}
+</body>
+</html>
